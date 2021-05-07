@@ -4,10 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import itertools
 
-def draw_line(this_path):
-    org_img = cv2.imread(r'./20210329(4)/ORIGINAL/750C 2h/750C2h-16Kx (1).tif', cv2.IMREAD_GRAYSCALE)
-    (h, w) = org_img.shape
 
+def draw_line(this_path: Path):
+    org_img = cv2.imread(str(this_path), cv2.IMREAD_GRAYSCALE)
+    (h, w) = org_img.shape
+    plt.axis('off')
     plt.imshow(org_img, cmap='gray')
     plt.axhline(y=h - 80, color="red")
 
@@ -23,5 +24,7 @@ def list_dir_in_dir(this_dir: Path):
 
 if __name__ == '__main__':
     original_path = Path('./20210329(4)/ORIGINAL')
-    print(list_dir_in_dir(original_path))
+    for p in list_dir_in_dir(original_path):
+        for l in list_file_in_dir(p):
+            draw_line(l)
 
